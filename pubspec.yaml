@@ -10,6 +10,7 @@ dependencies:
     sdk: flutter
   flutter_clock_helper:
     path: ../flutter_clock_helper
+  flare_flutter: ^2.0.1
 
   cupertino_icons: ^0.1.2
 
@@ -35,4 +36,7 @@ flutter:
       fonts:
         - asset: third_party/fonts/digital-7/digital-7.ttf
        # - asset: third_party/fonts/digital-7/digital-7-mono.ttf
+  
+  assets:
+    - assets/animations/
 

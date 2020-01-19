@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'src/sleeyax_clock.dart';
 
-
 void main() {
   // A temporary measure until Platform supports web and TargetPlatform supports
   // macOS.
@@ -17,6 +16,6 @@ void main() {
     // See https://github.com/flutter/flutter/wiki/Desktop-shells#target-platform-override.
     debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   }
-  
+
   runApp(ClockCustomizer((ClockModel model) => SleeyaxClock(model)));
 }

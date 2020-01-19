@@ -9,6 +9,6 @@ class ClockTheme {
   const ClockTheme({
     @required this.color,
     @required this.textStyle,
-  }) : assert(color != null),
-       assert(textStyle != null);
+  })  : assert(color != null),
+        assert(textStyle != null);
 }
