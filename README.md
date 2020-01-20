@@ -1,16 +1,19 @@
 # sleeyax_clock
 
-A new Flutter project.
+[Flutter clock challenge](https://flutter.dev/clock) submission.
 
-## Getting Started
+## Features
+- temperature indicator (red = hot, blue = cold, orange = in between)
+- weather animations
+- show time, weather, location on screen
 
-This project is a starting point for a Flutter application.
+## Showcase
+The temperature indicator moves aroud the clock to indicate the seconds that passed. In a real world scenario the user would tap the clock to stop the indicator from moving. This feature is not implemented because adding gestures isn't allowed according to the competition rules.
 
-A few resources to get you started if this is your first Flutter project:
+AMOLED Dark:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![dark cold](https://i.imgur.com/furRWpb.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Light:
+
+![white hot](https://i.imgur.com/vLdoRhZ.png)
