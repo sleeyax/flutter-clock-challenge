@@ -51,7 +51,8 @@ class ClockBorderPainter extends CustomPainter {
     );
   }
 
-  void _paintArc(Canvas canvas, Size size, double width, double time, Paint paint) {
+  void _paintArc(
+      Canvas canvas, Size size, double width, double time, Paint paint) {
     canvas.drawArc(
       Rect.fromCircle(
         center: size.center(Offset.zero),

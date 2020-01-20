@@ -4,7 +4,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:intl/intl.dart';
-import 'package:sleeyax_clock/src/seconds_painter.dart';
+import 'package:sleeyax_clock/src/border_painter.dart';
 
 import 'theme.dart';
 import 'temperature_settings.dart';
@@ -27,11 +27,13 @@ class _SleeyaxClockState extends State<SleeyaxClock> {
 
   final _lightTheme = const ClockTheme(
       color: Colors.white,
-      textStyle: TextStyle(color: Colors.black, fontFamily: 'Digital7', fontSize: 40));
+      textStyle:
+          TextStyle(color: Colors.black, fontFamily: 'Digital7', fontSize: 40));
 
   final _darkTheme = const ClockTheme(
       color: Colors.black,
-      textStyle: TextStyle(color: Colors.white, fontFamily: 'Digital7', fontSize: 40));
+      textStyle:
+          TextStyle(color: Colors.white, fontFamily: 'Digital7', fontSize: 40));
 
   @override
   void initState() {
@@ -61,10 +63,13 @@ class _SleeyaxClockState extends State<SleeyaxClock> {
 
   @override
   Widget build(BuildContext context) {
-    final hour = DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
+    final hour =
+        DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
     final minute = DateFormat('mm').format(_dateTime);
     // final second = DateFormat('ss').format(_dateTime);
-    final theme = Theme.of(context).brightness == Brightness.light ? _lightTheme : _darkTheme;
+    final theme = Theme.of(context).brightness == Brightness.light
+        ? _lightTheme
+        : _darkTheme;
 
     return Container(
       color: theme.color,
@@ -76,53 +81,55 @@ class _SleeyaxClockState extends State<SleeyaxClock> {
             AspectRatio(
                 aspectRatio: 6 / 6,
                 child: CustomPaint(
-                    painter: SecondsPainter(
+                    painter: ClockBorderPainter(
                         color: Colors.grey[800],
                         foregroundColor: _getBorderColor(widget.model),
                         seconds: _dateTime.second))),
-            // time
+            // time & temperature
             Align(
               alignment: Alignment.center,
-              child: Text('$hour:$minute'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('$hour:$minute'),
+                  Text(
+                    widget.model.temperatureString,
+                    style: TextStyle(fontSize: 20),
+                  )
+                ],
+              ),
             ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: _buildWeatherAnimation(
-                  widget.model.weatherString, widget.model.temperatureString),
-            )
-            // weather
-            /* Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 90),
-                  child: _buildWeatherAnimation(widget.model.weatherString),
+            // weather & location
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                _buildWeatherAnimation(widget.model.weatherString),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    widget.model.location,
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
-              ) */
+              ],
+            ),
           ]),
         ),
       ),
     );
   }
 
-  Widget _buildWeatherAnimation(String weather, String temperature) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Text(
-          temperature,
-          style: TextStyle(fontSize: 20),
-        ),
-        Container(
-          width: 80,
-          height: 80,
-          child: FlareActor(
-            'assets/animations/$weather.flr',
-            alignment: Alignment.center,
-            fit: BoxFit.contain,
-            animation: 'go',
-          ),
-        ),
-      ],
+  Widget _buildWeatherAnimation(String weather) {
+    return Container(
+      width: 50,
+      height: 50,
+      child: FlareActor(
+        'assets/animations/$weather.flr',
+        alignment: Alignment.center,
+        //fit: BoxFit.contain,
+        animation: 'go',
+      ),
     );
   }
 
@@ -134,7 +141,8 @@ class _SleeyaxClockState extends State<SleeyaxClock> {
   Color _getBorderColor(ClockModel model) {
     if (model.temperature >= _tempSettings.hot) {
       return Colors.red;
-    } else if (model.temperature > _tempSettings.cold && model.temperature < _tempSettings.hot) {
+    } else if (model.temperature > _tempSettings.cold &&
+        model.temperature < _tempSettings.hot) {
       return Colors.orange;
     } else {
       return Colors.blue;
