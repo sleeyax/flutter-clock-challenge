@@ -1,11 +1,11 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class SecondsPainter extends CustomPainter {
+class ClockBorderPainter extends CustomPainter {
   final int seconds;
   final Color foregroundColor, color;
 
-  SecondsPainter({
+  ClockBorderPainter({
     this.seconds,
     this.foregroundColor,
     this.color,
@@ -38,7 +38,7 @@ class SecondsPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(SecondsPainter old) =>
+  bool shouldRepaint(ClockBorderPainter old) =>
       seconds != old.seconds ||
       color != old.color ||
       foregroundColor != old.foregroundColor;
